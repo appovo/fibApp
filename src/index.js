@@ -73,7 +73,7 @@ class App extends React.Component {
   }
 }
 
-class H1 extends React.Component {
+class H1 extends React.PureComponent {
   render() {
     return <h1>{this.props.children}</h1>;
   }
