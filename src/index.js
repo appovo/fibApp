@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./styles.css";
+import { v4 as uuid } from "uuid";
 
 function fib(n) {
   if (n < 2) {
@@ -18,7 +19,7 @@ class App extends React.Component {
 
   generateNewNumber(prevState) {
     return {
-      id: prevState.numbers.length + 1,
+      id: uuid(),
       value: Math.floor(Math.random() * prevState.range) + prevState.baseNumber,
     };
   }
@@ -69,7 +70,7 @@ class App extends React.Component {
           Append new number
         </button>
         {this.state.numbers.map((number) => (
-          <Fib n={number.value} />
+          <Fib key={number.id} n={number.value} />
         ))}
       </div>
     );
