@@ -101,7 +101,7 @@ class RangeInput extends React.PureComponent {
   }
 }
 const COLORS = ["black", "red", "green", "blue"];
-function Fib({ n }) {
+const Fib = React.memo(function Fib({ n }) {
   const [colorIndex, setColorIndex] = useState(n % COLORS.length);
   const color = COLORS[colorIndex];
   function changeColor() {
@@ -112,7 +112,7 @@ function Fib({ n }) {
       fib({n}) = {fib(n)} <button onClick={changeColor}>Change Color</button>
     </li>
   );
-}
+});
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
