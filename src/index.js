@@ -22,27 +22,30 @@ class App extends React.Component {
       value: Math.floor(Math.random() * prevState.range) + prevState.baseNumber,
     };
   }
-
+  handleRangeChange = (range) => this.setState({ range });
+  handleBaseChange = (baseNumber) => this.setState({ baseNumber });
   render() {
+    const rangeLabel = `Spread: ${this.state.range}`;
+    const numberLabel = `Number: ${this.state.baseNumber}`;
     return (
       <div className="App">
         <H1>Fibonaccis</H1>
         <RangeInput
-          onChange={(baseNumber) => this.setState({ baseNumber })}
+          onChange={this.handleBaseChange}
           value={this.state.baseNumber}
           min="1"
           max="35"
         >
-          Number: {this.state.baseNumber}
+          {numberLabel}
         </RangeInput>
         <br />
         <RangeInput
-          onChange={(range) => this.setState({ range })}
+          onChange={this.handleRangeChange}
           value={this.state.range}
           min="0"
           max="5"
         >
-          Spread: {this.state.range}
+          {rangeLabel}
         </RangeInput>
         <br />
         <button
