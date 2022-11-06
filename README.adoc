@@ -1,0 +1,3 @@
+# React by MT: Fibonacci numbers calculator
+
+An excellent app to demonstrate optimisation techniques in React
