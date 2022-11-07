@@ -1,7 +1,8 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./styles.css";
 import { v4 as uuid } from "uuid";
+import moize from "moize";
 
 function fib(n) {
   if (n < 2) {
@@ -9,6 +10,8 @@ function fib(n) {
   }
   return fib(n - 2) + fib(n - 1);
 }
+
+const memoizedFib = moize(fib);
 
 class App extends React.Component {
   state = {
@@ -105,7 +108,7 @@ const COLORS = ["black", "red", "green", "blue"];
 const Fib = React.memo(function Fib({ n }) {
   const [colorIndex, setColorIndex] = useState(n % COLORS.length);
   const color = COLORS[colorIndex];
-  const fibN = useMemo(() => fib(n), [n]);
+  const fibN = memoizedFib(n);
   function changeColor() {
     setColorIndex((prevColorIndex) => (prevColorIndex + 1) % COLORS.length);
   }
