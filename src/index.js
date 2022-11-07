@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./styles.css";
 import { v4 as uuid } from "uuid";
@@ -72,9 +72,7 @@ class App extends React.Component {
         >
           Append new number
         </button>
-        {this.state.numbers.map((number) => (
-          <Fib key={number.id} n={number.value} />
-        ))}
+        <Fibs numbers={this.state.numbers} />
       </div>
     );
   }
@@ -104,8 +102,21 @@ class RangeInput extends React.PureComponent {
     );
   }
 }
+const Fibs = React.memo(({ numbers }) => {
+  const handleClick = useCallback(
+    (n, fibN) => console.log(`Clicked on fib(${n}) = ${fibN}`),
+    []
+  );
+  return (
+    <>
+      {numbers.map((number) => (
+        <Fib key={number.id} n={number.value} onClick={handleClick} />
+      ))}
+    </>
+  );
+});
 const COLORS = ["black", "red", "green", "blue"];
-const Fib = React.memo(function Fib({ n }) {
+const Fib = React.memo(function Fib({ n, onClick }) {
   const [colorIndex, setColorIndex] = useState(n % COLORS.length);
   const color = COLORS[colorIndex];
   const fibN = memoizedFib(n);
@@ -113,7 +124,7 @@ const Fib = React.memo(function Fib({ n }) {
     setColorIndex((prevColorIndex) => (prevColorIndex + 1) % COLORS.length);
   }
   return (
-    <li style={{ color }}>
+    <li style={{ color }} onClick={() => onClick(n, fibN)}>
       fib({n}) = {fibN} <button onClick={changeColor}>Change Color</button>
     </li>
   );
