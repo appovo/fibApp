@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./styles.css";
 import { v4 as uuid } from "uuid";
@@ -105,12 +105,13 @@ const COLORS = ["black", "red", "green", "blue"];
 const Fib = React.memo(function Fib({ n }) {
   const [colorIndex, setColorIndex] = useState(n % COLORS.length);
   const color = COLORS[colorIndex];
+  const fibN = useMemo(() => fib(n), [n]);
   function changeColor() {
     setColorIndex((prevColorIndex) => (prevColorIndex + 1) % COLORS.length);
   }
   return (
     <li style={{ color }}>
-      fib({n}) = {fib(n)} <button onClick={changeColor}>Change Color</button>
+      fib({n}) = {fibN} <button onClick={changeColor}>Change Color</button>
     </li>
   );
 });
